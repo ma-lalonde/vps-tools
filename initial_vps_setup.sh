@@ -33,9 +33,9 @@ then
             chsh -s /bin/bash ${USERNAME}
         fi
 
-		mv -v * /home/${USERNAME} > /dev/null
+		mv -v /root/* /home/${USERNAME} > /dev/null
         cd /home/${USERNAME}
-		chown -R ${USERNAME}: *
+		chown -R ${USERNAME}: /home/${USERNAME}/*
 
         # Log into proper user
         su ${USERNAME}
