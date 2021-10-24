@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:latest
+    container_name: "postgres-db"
     restart: always
     volumes:
       - db:/var/lib/postgresql/data
@@ -13,12 +14,12 @@ services:
 
   redis:
     image: redis:latest
-    container_name: "nc-redis"
+    container_name: "redis"
     restart: always
 
   app:
     image: nextcloud:production-fpm
-    container_name: "nc-main"
+    container_name: "nextcloud"
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -35,7 +36,7 @@ services:
 
   web:
     build: ./web
-    container_name: "nc-web"
+    container_name: "nginx"
     restart: always
     volumes:
       - nextcloud:/var/www/html:ro
