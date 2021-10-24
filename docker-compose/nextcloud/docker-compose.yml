@@ -48,17 +48,6 @@ services:
       - network-nginx-proxy
       - default
 
-  cron:
-    image: nextcloud:production-fpm
-    container_name: "nc-cron"
-    restart: always
-    volumes:
-      - nextcloud:/var/www/html
-    entrypoint: /cron.sh
-    depends_on:
-      - db
-      - redis
-
 volumes:
   db:
   nextcloud:
