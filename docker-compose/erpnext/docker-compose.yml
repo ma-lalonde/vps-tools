@@ -10,6 +10,9 @@ services:
       - FRAPPE_SOCKETIO=frappe-socketio
       - SOCKETIO_PORT=9000
       - SKIP_NGINX_TEMPLATE_GENERATION=${SKIP_NGINX_TEMPLATE_GENERATION}
+      - VIRTUAL_HOST=${SITE_NAME}
+      - LETSENCRYPT_HOST=${SITE_NAME}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     volumes:
       - sites-vol:/var/www/html/sites:rw
       - assets-vol:/assets:rw
