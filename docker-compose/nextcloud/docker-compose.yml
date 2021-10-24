@@ -23,6 +23,7 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
+      - OVERWRITEPROTOCOL=https
       - POSTGRES_HOST=db
       - REDIS_HOST=redis
       - POSTGRES_PASSWORD=${DB_PASSWORD}
