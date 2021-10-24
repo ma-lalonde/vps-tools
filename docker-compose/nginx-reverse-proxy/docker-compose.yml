@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+    nginx-proxy:
+        build: ./proxy
+        container_name: "nginx-proxy"
+        volumes:
+            - "html:/usr/share/nginx/html"
+            - "dhparam:/etc/nginx/dhparam"
+            - "vhost:/etc/nginx/vhost.d"
+            - "certs:/etc/nginx/certs:ro"
+            - "/run/docker.sock:/tmp/docker.sock:ro"
+        restart: "always"
+        networks: 
+            - "network-nginx-proxy"
+        ports:
+            - "80:80"
+            - "443:443"
+    letsencrypt:
+        image: "jrcs/letsencrypt-nginx-proxy-companion:latest"
+        container_name: "letsencrypt-helper"
+        volumes_from:
+            - "reverse-proxy"
+        volumes:
+            - "certs:/etc/nginx/certs:rw"
+            - "/run/docker.sock:/var/run/docker.sock:ro"
+        environment:
+            NGINX_PROXY_CONTAINER: "reverse-proxy"
+            DEFAULT_EMAIL: "${LETSENCRYPT_EMAIL}"
+        restart: "always"
+        depends_on:
+            - "nginx-proxy"
+        networks: 
+            - "network-nginx-proxy"
+            
+volumes:
+  certs:
+  html:
+  vhost:
+  dhparam:
+
+networks:
+  network-nginx-proxy:
+    name: network-nginx-proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+          gateway: 172.28.0.1
+          
+EOT

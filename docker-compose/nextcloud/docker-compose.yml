@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: "nc-db"
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
+      - MYSQL_PASSWORD=${MYSQL_USER_PW}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+
+  redis:
+    image: redis:latest
+    container_name: "nc-redis"
+    restart: always
+
+  app:
+    image: nextcloud:production-fpm
+    container_name: "nc-main"
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+
+  web:
+    build: ./web
+    container_name: "nc-web"
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html:ro
+    environment:
+      - VIRTUAL_HOST=${SITE}
+      - LETSENCRYPT_HOST=${SITE}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+    depends_on:
+      - app
+    networks:
+      - network-nginx-proxy
+      - default
+
+  cron:
+    image: nextcloud:production-fpm
+    container_name: "nc-cron"
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db:
+  nextcloud:
+
+networks:
+  network-nginx-proxy:
+    external: true

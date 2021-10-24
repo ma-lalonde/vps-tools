@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  openvpn:
+    cap_add:
+      - NET_ADMIN
+    image: kylemanna/openvpn:edge
+    container_name: openvpn
+    ports:
+      - "1194:1194/udp"
+    restart: always
+    volumes:
+      - ovpn-data:/etc/openvpn
+    environment:
+      - VIRTUAL_HOST=${SITE}
+      - LETSENCRYPT_HOST=${SITE}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+      - EASYRSA_KEY_SIZE=4096
+      - EASYRSA_REQ_CN=${SITE}
+      - OVPN_PROTO=${PROTO}
+    networks:
+      - network-nginx-proxy
+      
+volumes:
+  ovpn-data:
+
+networks:
+  network-nginx-proxy:
+    external: true 
