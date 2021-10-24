@@ -2,17 +2,14 @@ version: '3'
 
 services:
   db:
-    image: mariadb:latest
-    container_name: "nc-db"
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    image: postgres:latest
     restart: always
     volumes:
-      - db:/var/lib/mysql
+      - db:/var/lib/postgresql/data
     environment:
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PW}
-      - MYSQL_PASSWORD=${MYSQL_USER_PW}
-      - MYSQL_DATABASE=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
+      - POSTGRES_PASSWORD=$(DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
 
   redis:
     image: redis:latest
@@ -26,8 +23,11 @@ services:
     volumes:
       - nextcloud:/var/www/html
     environment:
-      - MYSQL_HOST=db
+      - POSTGRES_HOST=db
       - REDIS_HOST=redis
+      - POSTGRES_PASSWORD=$(DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
     depends_on:
       - db
       - redis

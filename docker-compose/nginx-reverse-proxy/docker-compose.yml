@@ -3,6 +3,7 @@ version: "3.8"
 services:
   nginx-proxy:
     build: ./proxy
+    container_name: nginx-proxy
     restart: always
     ports:
       - 80:80
@@ -19,6 +20,7 @@ services:
 
   letsencrypt-companion:
     image: jrcs/letsencrypt-nginx-proxy-companion
+    container_name: letsencrypt-companion
     restart: always
     volumes:
       - certs:/etc/nginx/certs
