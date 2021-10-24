@@ -46,7 +46,7 @@ then
 fi
 
 # Set proper user mask for installation
-echo "umask 0022" | sudo tee -a /etc/profile > /dev/null
+sudo echo "umask 0022" | sudo tee -a /etc/profile > /dev/null
 
 # Ask to disable root login (security)
 if yesno "SECURITY - Do you want to disable root login? It is recommended to do so. (y/n): "
@@ -97,12 +97,6 @@ then
     sudo pip3 install docker-compose
     sudo systemctl enable docker.service
     sudo systemctl start docker.service
-    
-
-    printf "~/$THIS_FILE\n" >> ~/.bashrc
-    echo "\nThis machine will reboot in 10 seconds and resume installation at next login."
-    sleep 10
-    printf "DOCKER_INSTALLED=1\n" >> $FILE
 fi
 
 # Ask to reboot.
