@@ -1,5 +1,4 @@
 #!/bin/bash
-sudo apt install git
 git clone https://github.com/frappe/frappe_docker.git
 cp docker-compose.override.yml frappe_docker/docker-compose.override.yml
 cp .env frappe_docker/.env
