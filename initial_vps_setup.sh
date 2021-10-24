@@ -78,7 +78,7 @@ echo "Done."
 # Install Fail2Ban
 if yesno "Install Fail2Ban? It will automatically give temporary bans to bad login requests through SSH and other services. (y/n): "
 then
-	sudo apt install fail2ban
+	sudo apt install fail2ban -y
 	sudo systemctl start fail2ban
 	sudo systemctl enable fail2ban
 	echo "Fail2Ban installed. Read its documentation for further security customization."
