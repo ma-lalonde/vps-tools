@@ -20,7 +20,7 @@ services:
         image: "jrcs/letsencrypt-nginx-proxy-companion:latest"
         container_name: "letsencrypt-helper"
         volumes_from:
-            - "reverse-proxy"
+            - "nginx-proxy"
         volumes:
             - "certs:/etc/nginx/certs:rw"
             - "/run/docker.sock:/var/run/docker.sock:ro"
