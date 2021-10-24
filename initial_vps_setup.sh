@@ -93,7 +93,7 @@ then
     sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
     sudo apt update
     sudo apt install docker-ce docker-ce-cli containerd.io -y
-    sudo usermod -aG docker ${USERNAME}
+    sudo usermod -aG docker ${USER}
     sudo pip3 install docker-compose
     sudo systemctl enable docker.service
     sudo systemctl start docker.service
