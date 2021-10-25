@@ -1,5 +1,0 @@
-services:
-  erpnext-nginx:
-    networks:
-      - default
-      - network-nginx-proxy

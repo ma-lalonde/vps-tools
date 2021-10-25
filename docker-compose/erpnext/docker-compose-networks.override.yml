@@ -1,4 +1,0 @@
-networks:
-  default:
-  network-nginx-proxy:
-    external: true
