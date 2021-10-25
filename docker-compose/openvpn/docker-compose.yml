@@ -16,12 +16,12 @@ services:
       - LETSENCRYPT_HOST=${SITE}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     networks:
-      - network-nginx-proxy
+      - nginx-proxy
       
 volumes:
   ovpn-data:
     external: true
 
 networks:
-  network-nginx-proxy:
+  nginx-proxy:
     external: true 

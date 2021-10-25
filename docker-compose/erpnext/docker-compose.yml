@@ -15,7 +15,7 @@ services:
       - assets-vol:/assets:rw
     networks:
       - default
-      - network-nginx-proxy
+      - nginx-proxy
 
   erpnext-python:
     image: frappe/erpnext-worker:${ERPNEXT_VERSION}
@@ -142,5 +142,5 @@ volumes:
   logs-vol:
   
 networks:
-  network-nginx-proxy:
+  nginx-proxy:
     external: true

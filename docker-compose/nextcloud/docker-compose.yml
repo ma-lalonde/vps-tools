@@ -47,7 +47,7 @@ services:
     depends_on:
       - app
     networks:
-      - network-nginx-proxy
+      - nginx-proxy
       - default
 
 volumes:
@@ -55,5 +55,5 @@ volumes:
   nextcloud:
 
 networks:
-  network-nginx-proxy:
+  nginx-proxy:
     external: true
