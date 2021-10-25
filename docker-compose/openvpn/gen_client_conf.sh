@@ -7,6 +7,7 @@ read -p "Enter a file name for the new client cert (without the .ovpn extension:
 		docker run -v ovpn-data:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full $FILENAME
 		docker run -v ovpn-data:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient $FILENAME > $FILENAME.ovpn
 		docker-compose up -d
+		echo "The configuration file has been copied to the local folder."
 	else
 		echo "Please enter a valid file name"
 	fi

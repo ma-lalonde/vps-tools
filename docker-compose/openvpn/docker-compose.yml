@@ -15,13 +15,12 @@ services:
       - VIRTUAL_HOST=${SITE}
       - LETSENCRYPT_HOST=${SITE}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
-      - EASYRSA_REQ_CN=${SITE}
-      - OVPN_PROTO=${PROTO}
     networks:
       - network-nginx-proxy
       
 volumes:
   ovpn-data:
+    external: false
 
 networks:
   network-nginx-proxy:
