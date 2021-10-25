@@ -1,7 +1,7 @@
 #!/bin/bash
 git clone https://github.com/frappe/frappe_docker.git
-cp -f docker-compose-erpnext.override.yml frappe_docker/docker-compose-erpnext.override.yml
-cp -f docker-compose-networks.override.yml frappe_docker/docker-compose-networks.override.yml
-cp -f .env frappe_docker/.env
+cp -f docker-compose-erpnext.override.yml frappe_docker/installation/docker-compose-erpnext.override.yml
+cp -f docker-compose-networks.override.yml frappe_docker/installation/docker-compose-networks.override.yml
+cp -f .env frappe_docker/installation/.env
 cd frappe_docker
 docker-compose -f installation/docker-compose-common.yml -f installation/docker-compose-erpnext.yml -f installation/docker-compose-networks.yml up -d
