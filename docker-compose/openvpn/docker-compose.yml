@@ -20,7 +20,7 @@ services:
       
 volumes:
   ovpn-data:
-    external: false
+    external: true
 
 networks:
   network-nginx-proxy:
