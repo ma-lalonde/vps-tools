@@ -1,5 +1,5 @@
 version: "3.9"
-    
+
 services:
 
   db:
@@ -10,13 +10,13 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
-      - MYSQL_DATABASE=${DB_NAME}
       - MYSQL_USER=${DB_USER}
       - MYSQL_PASSWORD=${DB_USER_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
     command: '--default-authentication-plugin=mysql_native_password'
-    
+
   wordpress:
-    image: wordpress:latest
+    image: wordpress:fpm
     container_name: wp_app
     volumes:
       - wordpress_data:/var/www/html
@@ -36,16 +36,16 @@ services:
     container_name: wp_web
     restart: unless-stopped
     volumes:
-      - wordpress_data:/var/www/html
-      - ./web:/etc/nginx/conf.d
+      - wordpress_data:/var/www/html:ro
     environment:
       - VIRTUAL_HOST=${SITE}
       - LETSENCRYPT_HOST=${SITE}
       - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
     networks:
-      - nginx-proxy
       - default
-      
+      - nginx-proxy
+
+
 networks:
   nginx-proxy:
     external: true

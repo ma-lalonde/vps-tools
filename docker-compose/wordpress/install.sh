@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source .env
-sed 's/YOUR_SITE_HERE/${SITE}/'
+sed -i "s/YOUR_SITE_HERE/${SITE}/" web/nginx.conf
 
-docker-compose up -d
+docker-compose up --build -d
+
